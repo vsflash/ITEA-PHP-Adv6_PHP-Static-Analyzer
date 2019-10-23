@@ -15,7 +15,7 @@ $ composer require greeflas/php-static-analyzer
 Usage
 -----
 
-TDB
+`$ ./bin/console stat:class-author <src> <email>` - Shows quantity of classes/interfaces/traits created by some developer.
 
 License
 -------
