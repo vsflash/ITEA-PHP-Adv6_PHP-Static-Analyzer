@@ -79,7 +79,7 @@ final class ClassSignatureAnalyzer
      *
      * @return string
      */
-    public function getClassName(): string
+    private function getClassName(): string
     {
         return $this->reflection->getShortName();
     }
@@ -89,7 +89,7 @@ final class ClassSignatureAnalyzer
      *
      * @return string
      */
-    public function getClassType(): string
+    private function getClassType(): string
     {
         if ($this->reflection->isAbstract()) {
             $type = self::CLASS_TYPE_ABSTRACT;
