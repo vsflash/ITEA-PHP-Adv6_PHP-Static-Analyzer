@@ -17,6 +17,8 @@ Usage
 
 `$ ./bin/console stat:class-author <src> <email>` - Shows quantity of classes/interfaces/traits created by some developer.
 
+`$ ./bin/console stat:class-signature <fullClassName>` - get info about signature classes (fullClassName -  Full class name).
+
 License
 -------
 
