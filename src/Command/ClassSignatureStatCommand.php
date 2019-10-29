@@ -65,7 +65,7 @@ final class ClassSignatureStatCommand extends Command
     private function createOutput(array $array): string
     {
         $output = '';
-        $output .= \sprintf('Class: %d is %d' . \PHP_EOL, $array['class_name'], $array['class_type']);
+        $output .= \sprintf('Class: %s is %s' . \PHP_EOL, $array['class_name'], $array['class_type']);
 
         $output .= \sprintf('Properties:' . \PHP_EOL);
         $output .= \sprintf("\t" . 'public: %d ' . \PHP_EOL, $array['properties']['public'], );
