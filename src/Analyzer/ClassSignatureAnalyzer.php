@@ -55,7 +55,7 @@ final class ClassSignatureAnalyzer
 
             return $this->getClassInfo();
         } catch (\ReflectionException $e) {
-            return $e;
+            throw \CustomReflectionException::forClassUnavailable($this->fullClassName);
         }
     }
 
