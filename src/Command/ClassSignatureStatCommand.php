@@ -68,14 +68,14 @@ final class ClassSignatureStatCommand extends Command
         $output .= \sprintf('Class: %s is %s' . \PHP_EOL, $array['class_name'], $array['class_type']);
 
         $output .= \sprintf('Properties:' . \PHP_EOL);
-        $output .= \sprintf("\t" . 'public: %d ' . \PHP_EOL, $array['properties']['public'], );
-        $output .= \sprintf("\t" . 'protected: %d ' . \PHP_EOL, $array['properties']['protected'], );
-        $output .= \sprintf("\t" . 'private: %d ' . \PHP_EOL, $array['properties']['private']);
+        $output .= \sprintf("\tpublic: %d\n", $array['properties']['public'], );
+        $output .= \sprintf("\tprotected: %d\n", $array['properties']['protected'], );
+        $output .= \sprintf("\tprivate: %d\n", $array['properties']['private']);
 
         $output .= \sprintf('Methods:') . \PHP_EOL;
-        $output .= \sprintf("\t" . 'public: %d ' . \PHP_EOL, $array['methods']['public'], );
-        $output .= \sprintf("\t" . 'protected: %d ' . \PHP_EOL, $array['properties']['protected']);
-        $output .= \sprintf("\t" . 'private: %d ' . \PHP_EOL, $array['properties']['private'], );
+        $output .= \sprintf("\tpublic: %d\n", $array['methods']['public'], );
+        $output .= \sprintf("\tprotected: %d\n", $array['properties']['protected']);
+        $output .= \sprintf("\tprivate: %d\n", $array['properties']['private'], );
 
         return $output;
     }
