@@ -46,7 +46,9 @@ final class ClassSignatureAnalyzer
     /**
      * Analyze class.
      *
-     * @return array|\Exception|\ReflectionException
+     * @return array
+     *
+     * @throws \CustomReflectionException
      */
     public function analyze()
     {
@@ -92,14 +94,12 @@ final class ClassSignatureAnalyzer
     private function getClassType(): string
     {
         if ($this->reflection->isAbstract()) {
-            $type = self::CLASS_TYPE_ABSTRACT;
+            return self::CLASS_TYPE_ABSTRACT;
         } elseif ($this->reflection->isFinal()) {
-            $type = self::CLASS_TYPE_FINAL;
-        } else {
-            $type = self::CLASS_TYPE_DEFAULT;
+            return self::CLASS_TYPE_FINAL;
         }
 
-        return $type;
+        return self::CLASS_TYPE_DEFAULT;
     }
 
     /**
