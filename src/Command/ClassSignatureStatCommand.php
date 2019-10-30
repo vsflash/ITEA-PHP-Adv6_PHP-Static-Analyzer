@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Greeflas\StaticAnalyzer\Command;
 
 use Greeflas\StaticAnalyzer\Analyzer\ClassSignatureAnalyzer;
+use Greeflas\StaticAnalyzer\ResultClassInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -58,24 +59,24 @@ final class ClassSignatureStatCommand extends Command
     /**
      * Create output string.
      *
-     * @param array $array
+     * @param ResultClassInfo $signatures
      *
      * @return string
      */
-    private function createOutput(array $array): string
+    private function createOutput(ResultClassInfo $signatures): string
     {
         $output = '';
-        $output .= \sprintf('Class: %s is %s' . \PHP_EOL, $array['class_name'], $array['class_type']);
+        $output .= \sprintf('Class: %s is %s' . \PHP_EOL, $signatures->getClassName(), $signatures->getClassType());
 
         $output .= \sprintf('Properties:' . \PHP_EOL);
-        $output .= \sprintf("\tpublic: %d\n", $array['properties']['public'], );
-        $output .= \sprintf("\tprotected: %d\n", $array['properties']['protected'], );
-        $output .= \sprintf("\tprivate: %d\n", $array['properties']['private']);
+        $output .= \sprintf("\tpublic: %d\n", $signatures->getCountPublicProperties(), );
+        $output .= \sprintf("\tprotected: %d\n", $signatures->getCountProtectedProperties(), );
+        $output .= \sprintf("\tprivate: %d\n", $signatures->getCountPrivateProperties());
 
         $output .= \sprintf('Methods:') . \PHP_EOL;
-        $output .= \sprintf("\tpublic: %d\n", $array['methods']['public'], );
-        $output .= \sprintf("\tprotected: %d\n", $array['properties']['protected']);
-        $output .= \sprintf("\tprivate: %d\n", $array['properties']['private'], );
+        $output .= \sprintf("\tpublic: %d\n", $signatures->getCountPublicMethods(), );
+        $output .= \sprintf("\tprotected: %d\n", $signatures->getCountProtectedMethods());
+        $output .= \sprintf("\tprivate: %d\n", $signatures->getCountPrivateMethods(), );
 
         return $output;
     }
