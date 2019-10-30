@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Greeflas\StaticAnalyzer\Analyzer;
 
+use Greeflas\StaticAnalyzer\ResultClassInfo;
+
 /**
  * This is analyzer of classes.
  *
@@ -46,9 +48,9 @@ final class ClassSignatureAnalyzer
     /**
      * Analyze class.
      *
-     * @return array
+     * @return ResultClassInfo
      *
-     * @throws \CustomReflectionException
+     * @throws \ClassNotFoundReflectionException
      */
     public function analyze()
     {
@@ -57,23 +59,27 @@ final class ClassSignatureAnalyzer
 
             return $this->getClassInfo();
         } catch (\ReflectionException $e) {
-            throw \CustomReflectionException::forClassUnavailable($this->fullClassName);
+            throw \ClassNotFoundReflectionException::forClassUnavailable($this->fullClassName);
         }
     }
 
     /**
-     * Get class info[class_name, class_type, properties[], methods[]].
+     * Create new ResultClassInfo and set properties.
      *
-     * @return array
+     * @return ResultClassInfo
      */
-    private function getClassInfo(): array
+    private function getClassInfo(): ResultClassInfo
     {
-        return [
-            'class_name' => $this->getClassName(),
-            'class_type' => $this->getClassType(),
-            'properties' => $this->getCount($this->getClassProperties()),
-            'methods' => $this->getCount($this->getClassMethods()),
-        ];
+        $count_properties = $this->getCount($this->getClassProperties());
+        $count_methods = $this->getCount($this->getClassMethods());
+
+        $result = new ResultClassInfo();
+        $result->setClassName($this->getClassName());
+        $result->setClassType($this->getClassType());
+        $result->setCountProperties($count_properties['public'], $count_properties['protected'], $count_properties['private']);
+        $result->setCountMethods($count_methods['public'], $count_methods['protected'], $count_methods['private']);
+
+        return $result;
     }
 
     /**
@@ -95,7 +101,9 @@ final class ClassSignatureAnalyzer
     {
         if ($this->reflection->isAbstract()) {
             return self::CLASS_TYPE_ABSTRACT;
-        } elseif ($this->reflection->isFinal()) {
+        }
+
+        if ($this->reflection->isFinal()) {
             return self::CLASS_TYPE_FINAL;
         }
 
